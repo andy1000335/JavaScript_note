@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>議程資訊</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand m-lg-auto mb-0 h1">議程資訊</span>
+        </div>
+    </nav>
+    
+    <h3 id="hints" style="display: none; color: red;">* 若使用 IE 瀏覽器可能會導致部分功能無法使用，請改用其他瀏覽器。</h3>
+    
+    <div class="filter">
+        <div class="time">            
+            時間：
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="day1" checked onclick="selectDay(value, checked)">
+                <label class="form-check-label" for="inlineCheckbox1">8/22</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="day2" checked onclick="selectDay(value, checked)">
+                <label class="form-check-label" for="inlineCheckbox2">8/23</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="day3" checked onclick="selectDay(value, checked)">
+                <label class="form-check-label" for="inlineCheckbox3">8/24</label>
+            </div>
+        </div>
+        <div class="tag" style="display: block;">
+            標籤：
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="computer-vision" checked onclick="selectTag(value, checked)">
+                <label class="form-check-label" for="inlineCheckbox4">電腦視覺</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="image-processing" checked onclick="selectTag(value, checked)">
+                <label class="form-check-label" for="inlineCheckbox5">影像處理</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="computer-graphics" checked onclick="selectTag(value, checked)">
+                <label class="form-check-label" for="inlineCheckbox6">電腦圖學</label>
+            </div> 
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="pattern-recognition" checked onclick="selectTag(value, checked)">
+                <label class="form-check-label" for="inlineCheckbox7">圖形識別</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="video-processing" checked onclick="selectTag(value, checked)">
+                <label class="form-check-label" for="inlineCheckbox8">視訊處理</label>
+            </div> 
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="else" checked onclick="selectTag(value, checked)">
+                <label class="form-check-label" for="inlineCheckbox9">其他應用</label>
+            </div>
+        </div>
+        <div class="dropdown" style="display: none;">
+            標籤：
+            <button class="btn dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="computer-vision" checked onclick="selectTag(value, checked)">
+                    <label class="form-check-label" for="inlineCheckbox4">電腦視覺</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="image-processing" checked onclick="selectTag(value, checked)">
+                    <label class="form-check-label" for="inlineCheckbox5">影像處理</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="computer-graphics" checked onclick="selectTag(value, checked)">
+                    <label class="form-check-label" for="inlineCheckbox6">電腦圖學</label>
+                </div> 
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="pattern-recognition" checked onclick="selectTag(value, checked)">
+                    <label class="form-check-label" for="inlineCheckbox7">圖形識別</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="video-processing" checked onclick="selectTag(value, checked)">
+                    <label class="form-check-label" for="inlineCheckbox8">視訊處理</label>
+                </div> 
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="else" checked onclick="selectTag(value, checked)">
+                    <label class="form-check-label" for="inlineCheckbox9">其他應用</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="switch">
+        <a class="btn btn-danger" id="switch" style="color: white;" onclick="displaySwitch()">查看已結束議程</a>
+        <a tabindex="0" class="btn btn-secondary" role="button" data-toggle="popover" data-placement="auto" data-popover-content="body">
+            會議議題
+        </a>
+    </div>
+
+    <div id="popover-body" style="display:none;">
+        <center>
+            <table cellpadding="5">
+                <tr>
+                    <th>電腦視覺</th>
+                    <th>影像處理</th>
+                </tr>
+                <tr>
+                    <td>
+                        景物分析 (Scene Analysis)<br/>
+                        攝影機校正 (Camera Calibration)<br/>
+                        三維景物重建 (3D Reconstruction)<br/>
+                        視覺式監控 (Vision-based Surveillance)<br/>
+                        視覺式人機介面 (Vision Interface)
+                    </td>
+                    <td>
+                        文件影像處理 (Document Image Processing)<br/>
+                        醫學影像處理 (Medical Image Processing)<br/>
+                        遙測影像處理 (Remote Image Processing)<br/>
+                        影像/視訊浮水印 (Image/Video Watermarking)<br/>
+                        超解析度 (Super-resolution)
+                    </td>
+                </tr>
+                <tr>
+                    <th>電腦圖學</th>
+                    <th>圖形識別</th>
+                </tr>
+                <tr>
+                    <td>
+                        繪圖 (Rendering)<br/>
+                        三維模型 (3D Modeling)<br/>
+                        視覺化 (Visualization)<br/>
+                        動畫 (Animation)<br/>
+                        人機互動 (Human-Computer Interaction)<br/>
+                        擴增實境/虛擬實境 (Augmented Reality/Virtual Reality)
+                    </td>
+                    <td>
+                        人臉偵測與辨識 (Face Detection & Recognition)<br/>
+                        表情辨識 (Facial Expression Recognition)<br/>
+                        人體姿勢辨識 (Gesture Recognition)<br/>
+                        行為辨識 (Behavior Recognition)
+                    </td>
+                </tr>
+                <tr>
+                    <th>視訊處理</th>
+                    <th>其他應用</th>
+                </tr>
+                <tr>
+                    <td>
+                        視訊物件切割 (Video Object Segmentation)<br/>
+                        視訊物件追蹤 (Video Object Tracking)<br/>
+                        視訊內涵分析(Video Content Analysis)<br/>
+                        視訊索引與檢索 (Video Indexing and Retrieval)<br/>
+                        視訊壓縮與傳輸 (Compression and Transmission of Videos)<br/>
+                        視訊調適技術 (Video Adaptation)<br/>
+                        網路視訊 (Video Networking)
+                    </td>
+                    <td>
+                        工業視覺檢測 (Visual Inspection)<br/>
+                        機器人視覺 (Robotic Vision)<br/>
+                        智慧型交通運輸系統 (Intelligent Transportation System)<br/>
+                        多媒體通信網路 (Multimedia Communication Network)<br/>
+                        數位訊號處理 (Digital Signal Processing)<br/>
+                        多媒體單晶片 (Multimedia SoC)<br/>
+                        生物醫學應用 (Biomedical Application)<br/>
+                        多媒體資訊安全 (Multimedia Security and Forensics)<br/>
+                        多媒體技術融入教學 (Multimedia in education)
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </div>
+
+
+    <!-- day 1 (8/22) -->
+    <div class="day-block day1" style="display:block;">
+        <div class='day-tag' style="display:block;">
+            <h2>8/22 (日)</h2>
+        </div>
+        <!-- 13:00 ~ 15:00 -->
+        <div class="card" id="S22A1" style="display:block;" tag="" end="2021-08-22T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 1</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td>39、59、72、ss01-02、ss08-03</td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="S22A2" style="display:block;" tag="" end="2021-08-22T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 2</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="S22A3" style="display:block;" tag="" end="2021-08-22T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 3</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="S22A4" style="display:block;" tag="" end="2021-08-22T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 4 - CVGIP Best Paper Session (IV)</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="S22A5" style="display:block;" tag="computer-vision" end="2021-08-22T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 5</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-primary">電腦視覺</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <!-- 15:20 ~ 17:20 -->
+        <div class="card" id="S22B1" style="display:block;" tag="image-processing" end="2021-08-22T17:20:00">
+            <div class="card-header">
+                15:20 ~ 17:20
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 6</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-success">影像處理</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="S22B2" style="display:block;" tag="image-processing" end="2021-08-22T17:20:00">
+            <div class="card-header">
+                15:20 ~ 17:20
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 7</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-success">影像處理</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="S22B3" style="display:block;" tag="pattern-recognition" end="2021-08-22T17:20:00">
+            <div class="card-header">
+                15:20 ~ 17:20
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 8</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-danger">圖形識別</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="S22B4" style="display:block;" tag="video-processing" end="2021-08-22T17:20:00">
+            <div class="card-header">
+                15:20 ~ 17:20
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 9</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-info">視訊處理</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="S22B5" style="display:block;" tag="else" end="2021-08-22T17:20:00">
+            <div class="card-header">
+                15:20 ~ 17:20
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 10</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-secondary">其他應用</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- day 2 (8/23) -->
+    <div class="day-block day2" style="display:block;">
+        <div class='day-tag' style="display:block;">
+            <h2>8/23 (一)</h2>
+        </div>
+        <!-- 9:00 ~ 9:40 -->
+        <div class="card" id="MS-TEAM-M23K" style="display:block;" tag="" end="2021-08-23T09:40:00">
+            <div class="card-header">
+                9:00 ~ 9:40
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">會員大會</h5>
+                <!-- <p class="card-text">主持人：</p> -->
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <!-- 9:50 ~ 10:00 -->
+        <div class="card" id="MEET-M23-YT" style="display:block;" tag="" end="2021-08-23T10:00:00">
+            <div class="card-header">
+                9:50 ~ 10:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">開幕式</h5>
+                <!-- <p class="card-text">主持人：</p> -->
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <!-- 10:00 ~ 10:50 -->
+        <div class="card" style="display:block;" tag="" end="2021-08-23T10:50:00">
+            <div class="card-header">
+                10:00 ~ 10:50
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">專題演講</h5>
+                <!-- <p class="card-text">主持人：</p> -->
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <!-- 11:10 ~ 12:00 -->
+        <div class="card" style="display:block;" tag="" end="2021-08-23T12:00:00">
+            <div class="card-header">
+                11:10 ~ 12:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">專題演講</h5>
+                <!-- <p class="card-text">主持人：</p> -->
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <!-- 13:00 ~ 15:00 -->
+        <div class="card" id="M23C1" style="display:block;" tag="" end="2021-08-23T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">論文獎發表</h5>
+                <p class="card-text">主持人：</p>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="M23C2" style="display:block;" tag="computer-vision" end="2021-08-23T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 11</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-primary">電腦視覺</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="M23C3" style="display:block;" tag="computer-vision" end="2021-08-23T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 12</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-primary">電腦視覺</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="M23C4" style="display:block;" tag="computer-vision" end="2021-08-23T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 13</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-primary">電腦視覺</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="M23C5" style="display:block;" tag="else" end="2021-08-23T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 14</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-secondary">其他應用</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="M23CP" style="display:block;" tag="" end="2021-08-23T15:00:00">
+            <div class="card-header">
+                13:00 ~ 15:00
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Poster Session</h5>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <!-- 15:20 ~ 17:20 -->
+        <div class="card" id="M23D1" style="display:block;" tag="" end="2021-08-23T17:20:00">
+            <div class="card-header">
+                15:20 ~ 17:20
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">特別論壇</h5>
+                <p class="card-text">主持人：</p>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="M23D2" style="display:block;" tag="image-processing" end="2021-08-23T17:20:00">
+            <div class="card-header">
+                15:20 ~ 17:20
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 15</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-success">影像處理</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="M23D3" style="display:block;" tag="image-processing" end="2021-08-23T17:20:00">
+            <div class="card-header">
+                15:20 ~ 17:20
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 16</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td>9、58、68、70、80、82</td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-success">影像處理</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="M23D4" style="display:block;" tag="pattern-recognition" end="2021-08-23T17:20:00">
+            <div class="card-header">
+                15:20 ~ 17:20
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 17</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-danger">圖形識別</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="M23D5" style="display:block;" tag="else" end="2021-08-23T17:20:00">
+            <div class="card-header">
+                15:20 ~ 17:20
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 18</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-secondary">其他應用</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- day 3 (8/24) -->
+    <div class="day-block day3" style="display:block;">
+        <div class='day-tag' style="display:block;">
+            <h2>8/24 (二)</h2>
+        </div>
+        <!-- 8:20 ~ 9:50 -->
+        <div class="card" id="T24E1" style="display:block;" tag="computer-vision" end="2021-08-24T09:50:00">
+            <div class="card-header">
+                8:20 ~ 9:50
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 19</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-primary">電腦視覺</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="T24E2" style="display:block;" tag="else" end="2021-08-24T09:50:00">
+            <div class="card-header">
+                8:20 ~ 9:50
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 20</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td>65、67、92、93、94</td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-secondary">其他應用</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="T24E3" style="display:block;" tag="" end="2021-08-24T09:50:00">
+            <div class="card-header">
+                8:20 ~ 9:50
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 21</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="T24E4" style="display:block;" tag="pattern-recognition" end="2021-08-24T09:50:00">
+            <div class="card-header">
+                8:20 ~ 9:50
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 22</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-danger">圖形識別</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="T24E5" style="display:block;" tag="else" end="2021-08-24T09:50:00">
+            <div class="card-header">
+                8:20 ~ 9:50
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 23</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-secondary">其他應用</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <!-- 10:10 ~ 12:10 -->
+        <div class="card" id="T24F1" style="display:block;" tag="" end="2021-08-24T12:10:00">
+            <div class="card-header">
+                10:10 ~ 12:10
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 24</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="T24F2" style="display:block;" tag="else" end="2021-08-24T12:10:00">
+            <div class="card-header">
+                10:10 ~ 12:10
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 25</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-secondary">其他應用</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="T24F3" style="display:block;" tag="else" end="2021-08-24T12:10:00">
+            <div class="card-header">
+                10:10 ~ 12:10
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 26</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-secondary">其他應用</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="MEET-T24F4" style="display:block;" tag="computer-graphics" end="2021-08-24T12:10:00">
+            <div class="card-header">
+                10:10 ~ 12:10
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 27</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="tag">
+                    <span class="badge badge-pill badge-warning">電腦圖學</span>
+                </div>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+        <div class="card" id="T24F5" style="display:block;" tag="" end="2021-08-24T12:10:00">
+            <div class="card-header">
+                10:10 ~ 12:10
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Oral session 28</h5>
+                <table>
+                    <tr>
+                        <td>論文編號：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>主&ensp;持&ensp;人：</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <a href="#" target="_blank" class="btn btn-outline-dark">議程連結</a>
+                <a href="#" target="_blank" class="btn btn-outline-dark">線上提問</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
+<script>
+    // 判斷是否為 IE 瀏覽器
+    function isIE() {
+        return (navigator.appName == "Microsoft Internet Explorer") ||     // IE 10 以下
+                (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null);    // IE 11
+    }
+
+    // IE 版本
+    function IEVersion() {
+        return parseInt(navigator.appVersion.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""));
+    }
+
+    if (isIE())
+        document.getElementById('hints').style.display = 'block';
+
+    var date = new Date();
+    var now = date.getTime();
+    var sw = false;
+    var tagFilter = [];
+
+
+    var allEndSession = new Map();
+    var allNotEndSession = new Map();
+    var dayBlocks = document.getElementsByClassName('day-block');
+    for (var i = 0; i < dayBlocks.length; i++) {
+        var block = dayBlocks[i];
+        var day = block.getAttribute('class').split(' ')[1];
+        var sessions = block.getElementsByClassName('card');
+        var endSessions = [];
+        var notEndSessions = [];
+        for (var j = 0; j < sessions.length; j++) {
+            var session = sessions[j];
+            var end = session.getAttribute('end');
+            if (now.valueOf() > Date.parse(end).valueOf())
+                endSessions.push(session);
+            else
+                notEndSessions.push(session);
+        }
+        allEndSession.set(day, endSessions);
+        allNotEndSession.set(day, notEndSessions);
+    }
+
+    if (document.body.offsetWidth < 490) {
+        document.getElementsByClassName('tag')[0].style.display = 'none';
+        document.getElementsByClassName('dropdown')[0].style.display = 'block';
+    }
+    else {
+        document.getElementsByClassName('tag')[0].style.display = 'block';
+        document.getElementsByClassName('dropdown')[0].style.display = 'none';
+    }
+
+    display();
+
+    function display() {
+        var status1;
+        var status2;
+        if (sw) {
+            status1 = 'none';
+            status2 = 'block';
+        }
+        else {
+            status1 = 'block';
+            status2 = 'none';
+        }
+        allNotEndSession.forEach(function(sessions, day) {
+            var dayTag = document.getElementsByClassName(day)[0].getElementsByClassName('day-tag')[0];
+            if (sessions.length > 0) {
+                if (!sw)
+                    dayTag.style.display = status1;
+                for (var i = 0; i < sessions.length; i++)
+                    sessions[i].style.display = status1;
+            }
+            else
+                dayTag.style.display = status2;
+        });
+        allEndSession.forEach(function(sessions, day) {
+            var dayTag = document.getElementsByClassName(day)[0].getElementsByClassName('day-tag')[0];
+            if (sessions.length > 0) {
+                if (sw)
+                    dayTag.style.display = status2;
+                for (var i = 0; i < sessions.length; i++) {
+                    sessions[i].style.display = status2;
+                    sessions[i].style.color = '#BBB';
+                    var buttons = sessions[i].getElementsByClassName('btn');
+                    for (var j = 0; j < buttons.length; j++) {
+                        buttons[j].className += ' disabled';
+                        buttons[j].setAttribute('tabindex', '-1');
+                    }
+                }
+            }
+            else
+                dayTag.style.display = status1;
+        });
+    }
+
+    function displaySwitch() {
+        sw = !sw;
+        var button = document.getElementById('switch')
+        if (sw) {
+            button.className = 'btn btn-success'
+            button.innerHTML = '查看未結束議程';
+        }
+        else {
+            button.className = 'btn btn-danger'
+            button.innerHTML = '查看已結束議程';
+        }
+        selectTag();
+        display();        
+    }
+
+    function selectDay(value, status) {
+        if (status)
+            document.getElementsByClassName(value)[0].style.display = 'block';
+        else
+            document.getElementsByClassName(value)[0].style.display = 'none';
+	}
+
+    function selectTag(value, status) {
+        if (value)
+            if (status)
+                tagFilter.splice(tagFilter.indexOf(value), 1);
+            else
+                tagFilter.push(value);
+
+        var sessions = [];
+        if (sw)
+            allEndSession.forEach(function(sess, _) {
+                sessions = sessions.concat(sess);
+            });
+        else
+            allNotEndSession.forEach(function(sess, _) {
+                sessions = sessions.concat(sess);
+            });
+            
+        for (var i = 0; i < sessions.length; i++) {
+            var session = sessions[i];
+            var tagStr = session.getAttribute('tag');
+            if (tagStr) {
+                var tags = tagStr.split(' ');
+                var hidden = true;
+                for (var j = 0; j < tags.length; j++)
+                    hidden &= tagFilter.includes(tags[j]);
+                if (hidden)
+                    session.style.display = 'none';
+                else
+                    session.style.display = 'block';
+            }
+        }
+	}
+
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            trigger: 'focus',
+            content: function() {
+                return $('#popover-body').html();
+            }
+        })
+    })
+</script>
+<style>
+    .filter, #hints {
+        margin: 20px 50px;
+    }
+    .dropdown-menu {
+        padding: 5px;
+        margin: 0;
+        text-align: center;
+        max-width: 100px;
+    }
+    .form-check-inline {
+        width: 8%;
+        max-width: 85px;
+        min-width: 40px;
+    }
+    .switch .btn-secondary {
+        float: right;
+    }
+    .popover {
+        min-width: 300px;
+        max-width: 800px;
+        width: 50%;
+    }
+    table td {
+        vertical-align: text-top;
+    }
+    .switch {
+        margin: 0 50px;
+    }
+    .card {
+        margin: 20px 50px;
+    }
+    .card td {
+        min-width: 80px;
+        box-sizing: content-box;
+    }
+    .day-tag {
+        margin: 20px 50px 0px 50px;
+    }
+    .card-text {
+        margin-bottom: 0px;
+    }
+    .tag {
+        margin-top: 5px;
+    }
+    .btn-outline-dark {
+        margin-top: 16px;
+    }
+</style>
