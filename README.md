@@ -57,3 +57,24 @@ function IEVersion() {
   return parseInt(navigator.appVersion.split(';')[1].replace(/[ ]/g, '').replace('MSIE', ''));
 }
 ```
+
+## HTML elements
+#### 取得 element
+```javascript
+var element = document.getElementById('Id');
+var element = document.getElementsByClassName('ClassName');    // 回傳 array
+```
+#### 屬性值
+```javascript
+element.getAttribute('attribute');
+element.setAttribute('attr', 'value');
+element.className += ' newClass';    // 加入新的 class
+```
+#### 加入 HTML
+```javascript
+element.innerHTML = 'html';
+```
+#### CSS
+```javascript
+element.style
+```
